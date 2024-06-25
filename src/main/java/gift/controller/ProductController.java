@@ -38,7 +38,7 @@ public class ProductController {
 
     @PutMapping("products/{id}")
     public void updateProduct(@PathVariable Integer id, @RequestBody ProductDTO productDTO) {
-        products.set((int) (id-1), productDTO);
+        products.set(id-1, productDTO);
     }
 
     private void listIndexToKey(List<ProductDTO> products, List<Map<Integer, ProductDTO>> productMaps) {
