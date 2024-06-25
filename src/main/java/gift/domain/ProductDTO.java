@@ -1,6 +1,6 @@
 package gift.domain;
 
-public class Product {
+public class ProductDTO {
     private int id;
     private String name;
     private int price;
