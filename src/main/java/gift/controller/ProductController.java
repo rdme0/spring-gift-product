@@ -20,9 +20,7 @@ public class ProductController {
 
     @GetMapping("/products")
     public List<Map<Integer, ProductDTO>> getProducts() {
-        List<Map<Integer, ProductDTO>> productsListForOutput = new ArrayList<>();
-        listIndexToKey(products, productsListForOutput);
-        return productsListForOutput;
+        return listIndexToKey(products); //리스트의 인덱스를 map의 Key + 1로 변환해주는 메서드
     }
 
     @PostMapping("/products")
@@ -41,12 +39,14 @@ public class ProductController {
         products.set(id-1, productDTO);
     }
 
-    private void listIndexToKey(List<ProductDTO> products, List<Map<Integer, ProductDTO>> productMaps) {
+    private List<Map<Integer, ProductDTO>> listIndexToKey(List<ProductDTO> products) {
+        List<Map<Integer, ProductDTO>> productMaps = new ArrayList<>();
         Iterator<ProductDTO> iterator = products.iterator();
         for (int i = 0; iterator.hasNext(); i++) {
             Map<Integer, ProductDTO> map = new HashMap<>();
             map.put((i + 1), iterator.next());
             productMaps.add(map);
         }
+        return productMaps;
     }
 }
