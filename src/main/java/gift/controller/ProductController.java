@@ -2,8 +2,6 @@ package gift.controller;
 
 import gift.domain.ProductDTO;
 import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -17,10 +15,11 @@ import org.springframework.web.bind.annotation.RestController;
 @RestController
 public class ProductController {
     private final List<ProductDTO> products = new ArrayList<>();
+    public ProductUtil productUtil = new ProductUtil();
 
     @GetMapping("/products")
     public List<Map<Integer, ProductDTO>> getProducts() {
-        return listIndexToKey(products); //리스트의 인덱스를 map의 Key + 1로 변환해주는 메서드
+        return productUtil.listIndexToKey(products); //리스트의 인덱스를 map의 Key + 1로 변환해주는 메서드
     }
 
     @PostMapping("/products")
@@ -39,14 +38,4 @@ public class ProductController {
         products.set(id-1, productDTO);
     }
 
-    private List<Map<Integer, ProductDTO>> listIndexToKey(List<ProductDTO> products) {
-        List<Map<Integer, ProductDTO>> productMaps = new ArrayList<>();
-        Iterator<ProductDTO> iterator = products.iterator();
-        for (int i = 0; iterator.hasNext(); i++) {
-            Map<Integer, ProductDTO> map = new HashMap<>();
-            map.put((i + 1), iterator.next());
-            productMaps.add(map);
-        }
-        return productMaps;
-    }
 }
