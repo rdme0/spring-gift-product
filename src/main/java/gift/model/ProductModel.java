@@ -10,7 +10,7 @@ import org.springframework.stereotype.Repository;
 @Repository
 public class ProductModel {
 
-    private final List<ProductDTO> products = new ArrayList<>();
+    private final List<ProductDTO> products = new ArrayList<>(); //DB 시뮬레이션
 
     public void addProduct(ProductDTO product) throws DuplicatedProductIdException { //C
         checkDuplicate(product);
