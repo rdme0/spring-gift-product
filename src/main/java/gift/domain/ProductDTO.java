@@ -6,6 +6,13 @@ public class ProductDTO {
     private int price;
     private String imageUrl;
 
+    public ProductDTO(int id, String name, int price, String imageUrl) {
+        this.id = id;
+        this.name = name;
+        this.price = price;
+        this.imageUrl = imageUrl;
+    }
+
     public int getId() {
         return id;
     }
