@@ -6,8 +6,13 @@ import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
+import org.springframework.stereotype.Component;
 
+@Component
 public class ProductUtil {
+
+    public ProductUtil() { }
+
     public List<Map<Integer, ProductDTO>> listIndexToKey(List<ProductDTO> products) {
         List<Map<Integer, ProductDTO>> productMaps = new ArrayList<>();
         Iterator<ProductDTO> iterator = products.iterator();
