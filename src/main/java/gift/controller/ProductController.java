@@ -4,11 +4,14 @@ import gift.customException.CustomException;
 import gift.domain.ProductDTO;
 import gift.model.ProductModel;
 import jakarta.validation.Valid;
+import jakarta.validation.constraints.Min;
+import jakarta.validation.constraints.NotNull;
 import java.util.List;
 import java.util.Map;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -18,6 +21,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
+@Validated
 public class ProductController {
 
     private final ProductUtil productUtil;
@@ -49,9 +53,7 @@ public class ProductController {
     }
 
     @DeleteMapping("/products/{id}")
-    public ResponseEntity<String> deleteProduct(@PathVariable @Valid Integer id) {
-        if (id == null || id < 0)
-            return new ResponseEntity<>("Invalid id", HttpStatus.BAD_REQUEST);
+    public ResponseEntity<String> deleteProduct(@PathVariable @Min(1) @NotNull Integer id) {
         try{
             productModel.deleteProduct(id-1);
         } catch (RuntimeException e) {
@@ -65,7 +67,7 @@ public class ProductController {
 
 
     @PutMapping("/products/{id}")
-    public ResponseEntity<String> updateProduct(@PathVariable Integer id, @RequestBody @Valid ProductDTO productDTO) {
+    public ResponseEntity<String> updateProduct(@PathVariable  @Min(1) @NotNull Integer id, @RequestBody @Valid ProductDTO productDTO) {
         try {
             productModel.updateProduct(id - 1, productDTO);
 
