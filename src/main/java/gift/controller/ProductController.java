@@ -34,7 +34,7 @@ public class ProductController {
 
     @GetMapping("/products")
     public List< ProductDTO> getProducts() {
-        return productModel.getProductList(); //리스트의 인덱스를 map의 Key + 1로 변환해주는 메서드
+        return productModel.getProductList();
     }
 
     @PostMapping("/products")
