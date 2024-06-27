@@ -1,8 +1,7 @@
 package gift.model;
 
-import gift.customException.DuplicatedProductIdException;
 import gift.customException.InvalidIdException;
-import gift.customException.NotFoundSuchProductIdException;
+import gift.customException.NoSuchProductIdException;
 import gift.domain.ProductDTO;
 import java.util.ArrayList;
 import java.util.List;
@@ -16,10 +15,10 @@ public class ProductModel {
     private final List<ProductDTO> productList = new ArrayList<>(); //DB 시뮬레이션
 
     public synchronized void addProduct(ProductDTO product)
-            throws DuplicatedProductIdException, InvalidIdException { //C
+            throws InvalidIdException { //C
 
-        if (isDuplicateId(product))
-            throw new DuplicatedProductIdException("이미 있는 상품 id 입니다.");
+        if(product.getName().isBlank() || product.getPrice() == null || product.getImageUrl().isBlank())
+            throw new InvalidIdException("입력 값에 빈 곳이 있습니다. 다시 제대로 입력해주세요");
 
         if(product.getId() != null)
             throw new InvalidIdException("id를 입력하지 말아주세요.\n저희가 알아서 추가합니다.");
@@ -40,7 +39,7 @@ public class ProductModel {
     }
 
     public synchronized void updateProduct(Integer id, ProductDTO product)
-            throws NotFoundSuchProductIdException, InvalidIdException { //U
+            throws NoSuchProductIdException, InvalidIdException { //U
 
         if (!Objects.equals(product.getId(), id)) {
             throw new InvalidIdException("올바르지 않은 id입니다.");
@@ -51,17 +50,17 @@ public class ProductModel {
                 .findFirst();
 
         if (optionalProduct.isEmpty()) {
-            throw new NotFoundSuchProductIdException("id가 %d인 상품은 존재하지 않습니다.".formatted(id));
+            throw new NoSuchProductIdException("id가 %d인 상품은 존재하지 않습니다.".formatted(id));
         }
         int index = productList.indexOf(optionalProduct.get());
         productList.set(index, product);
     }
 
-    public synchronized void deleteProduct(Integer id) throws NotFoundSuchProductIdException { //D
+    public synchronized void deleteProduct(Integer id) throws NoSuchProductIdException { //D
         boolean removed = productList.removeIf(productDTO -> productDTO.getId().equals(id));
 
         if (!removed) {
-            throw new NotFoundSuchProductIdException("id가 %d인 상품은 존재하지 않습니다.".formatted(id));
+            throw new NoSuchProductIdException("id가 %d인 상품은 존재하지 않습니다.".formatted(id));
         }
     }
 
