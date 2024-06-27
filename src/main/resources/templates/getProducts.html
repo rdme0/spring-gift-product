@@ -2,29 +2,137 @@
 <html lang="ko" xmlns:th="http://www.thymeleaf.org">
 <head>
   <meta charset="UTF-8">
-  <title>Product List</title>
+  <title>제품 리스트</title>
+  <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 </head>
 <body>
-<h1>Product List</h1>
-<table>
+
+<div th:class="productListBox">
+  <h1>제품 리스트</h1>
+  <img th:src="@{/add.png}" alt="add" style="width:100px;height: auto" onclick="addProductRow()">
+
+
+</div>
+<table id="productTable">
   <thead>
   <tr>
     <th>ID</th>
     <th>Name</th>
     <th>Price</th>
-    <th>Image</th>
+    <th>ImageUrl</th>
   </tr>
   </thead>
   <tbody>
-  <tr th:each="product : ${productList}">
+  <tr th:each="product : ${productList}" th:attr="data-id=${product.id}">
     <td th:text="${product.id}">1</td>
     <td th:text="${product.name}">Product Name</td>
     <td th:text="${product.price}">1000</td>
     <td>
       <img th:src="${product.imageUrl}" alt="Image" style="width:100px;height:auto;">
     </td>
+    <td>
+      <img th:src="@{/edit.png}" alt="edit" style="width:100px;height: auto"
+           onclick="editProductRow()">
+    </td>
+    <td>
+      <img th:src="@{/remove.png}" alt="remove" style="width:100px;height: auto"
+           onclick="removeProductRow(this)">
+    </td>
   </tr>
   </tbody>
 </table>
+
+<script>
+  function addProductRow() {
+    const table = document.getElementById('productTable').getElementsByTagName('tbody')[0];
+    const newRow = table.insertRow();
+
+    const idCell = newRow.insertCell(0);
+    const nameCell = newRow.insertCell(1);
+    const priceCell = newRow.insertCell(2);
+    const imageCell = newRow.insertCell(3);
+    const saveCell = newRow.insertCell(4);
+    const cancelCell = newRow.insertCell(5);
+
+    idCell.innerHTML = '<input type="text" id="newId" disabled>';
+    nameCell.innerHTML = '<input type="text" id="newName">';
+    priceCell.innerHTML = '<input type="text" id="newPrice">';
+    imageCell.innerHTML = '<input type="text" id="newImage">';
+    saveCell.innerHTML = '<img src="/save.png" alt="save" style="width:100px;height: auto" onclick="saveProduct()">';
+    cancelCell.innerHTML = '<img src="/cancel.png" alt="cancel" style="width:100px;height: auto" onclick="cancelProductEditing()">';
+  }
+
+  function saveProduct() {
+    //const newId = document.getElementById('newId').value;
+
+    const newName = document.getElementById('newName').value;
+    const newPrice = document.getElementById('newPrice').value;
+    const newImage = document.getElementById('newImage').value;
+
+    let requestJson = {
+      "name": newName,
+      "price": newPrice,
+      "imageUrl": newImage
+    }
+
+    $.ajax({
+          type: 'POST',
+          url: '/api/products',
+          dataType: 'json',
+          contentType: 'application/json; charset=utf-8',
+          data: JSON.stringify(requestJson),
+          success: function (response) {
+            if (response.error) {
+              alert('오류: ' + response.message);
+            } else {
+              alert('성공: ' + response.message);
+            }
+            window.location.href = '/api/products';
+          },
+          error: function () {
+            alert('상품 추가 실패: 서버와의 통신 오류');
+            window.location.href = '/api/products';
+          }
+        }
+    );
+
+
+  }
+
+  function cancelProductEditing() {
+    const table = document.getElementById('productTable').getElementsByTagName('tbody')[0];
+    table.deleteRow(table.rows.length - 1);
+  }
+
+  function removeProductRow(button) {
+    const row = button.closest('tr');
+    const productId = row.getAttribute('data-id')
+
+    $.ajax({
+          type: 'DELETE',
+          url: `/api/products/${productId}`,
+          contentType: 'application/json; charset=utf-8',
+          success: function (response) {
+            if (response.error) {
+              alert('오류: ' + response.message);
+            } else {
+              alert('성공: ' + response.message);
+            }
+            window.location.href = '/api/products';
+          },
+          error: function () {
+            alert('상품 삭제 실패: 서버와의 통신 오류');
+            window.location.href = '/api/products';
+          }
+        }
+    );
+
+
+  }
+
+
+</script>
+
+
 </body>
 </html>
