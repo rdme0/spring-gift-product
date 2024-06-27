@@ -2,11 +2,11 @@ package gift.customException;
 
 public class NullContentException extends RuntimeException implements CustomException {
 
-    NullContentException() {
+    public NullContentException() {
         super();
     }
 
-    NullContentException(String message) {
+    public NullContentException(String message) {
         super(message);
     }
 }
