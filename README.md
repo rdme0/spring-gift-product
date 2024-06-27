@@ -19,3 +19,7 @@
 - request의 유효성 검사를 하는 기능을 구현
 - model이 thread-safe하게 구현
 - HttpStatus를 서버가 처리를 성공할 때와 실패할 때 등을 분류하여 리턴하도록 구현
+
+### 튜토리얼
+https://github.com/rdme0/spring-gift-product/assets/71927381/4a828082-bba2-46fd-8ab7-57363b67baa8
+
