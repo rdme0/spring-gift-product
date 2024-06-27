@@ -12,8 +12,8 @@ function addProductRow(element) {
   newNameCell.innerHTML = '<input type="text" id="newName">';
   newPriceCell.innerHTML = '<input type="text" id="newPrice">';
   newImageCell.innerHTML = '<input type="text" id="newImage">';
-  saveCell.innerHTML = '<img src="/save.png" alt="save" style="width:100px;height: auto" onclick="saveAddProduct()">';
-  cancelCell.innerHTML = '<img src="/cancel.png" alt="cancel" style="width:100px;height: auto" onclick="cancelProductEditing()">';
+  saveCell.innerHTML = '<img src="/image/save.png" alt="save" style="width:100px;height: auto" onclick="saveAddProduct()">';
+  cancelCell.innerHTML = '<img src="/image/cancel.png" alt="cancel" style="width:100px;height: auto" onclick="cancelProductEditing()">';
 
   // 추가 버튼 비활성화
   element.style.pointerEvents = 'none';
@@ -46,7 +46,7 @@ function saveAddProduct() {
       window.location.href = '/api/products';
     },
     error: function () {
-      alert('상품 추가를 실패하였습니다.');
+      alert('상품 추가를 실패하였습니다. 값을 제대로 입력했는지 확인해주세요');
       window.location.href = '/api/products';
     }
   });
@@ -101,7 +101,7 @@ function editProductRow(button) {
   imageCell.innerHTML = `<input type="text" class="newImage" value="${currentImage}">`;
 
   // 편집 버튼을 저장 버튼으로 변경
-  button.setAttribute('src', '/save.png');
+  button.setAttribute('src', '/image/save.png');
   button.setAttribute('alt', 'save');
   button.setAttribute('onclick', 'savePutProductRow(this)');
 }
@@ -136,7 +136,7 @@ function savePutProductRow(button) {
     },
     error: function () {
 
-      alert('상품 수정을 실패하였습니다.');
+      alert('상품 수정을 실패하였습니다.  값을 제대로 입력했는지 확인해주세요');
       window.location.href = '/api/products';
     }
   });
