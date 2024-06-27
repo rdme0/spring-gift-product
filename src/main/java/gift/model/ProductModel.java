@@ -16,10 +16,22 @@ public class ProductModel {
     private final List<ProductDTO> productList = new ArrayList<>(); //DB 시뮬레이션
 
     public synchronized void addProduct(ProductDTO product)
-            throws DuplicatedProductIdException { //C
-        if (isDuplicateId(product)) {
+            throws DuplicatedProductIdException, InvalidIdException { //C
+
+        if (isDuplicateId(product))
             throw new DuplicatedProductIdException("이미 있는 상품 id 입니다.");
+
+        if(product.getId() != null)
+            throw new InvalidIdException("id를 입력하지 말아주세요.\n저희가 알아서 추가합니다.");
+
+        if(productList.isEmpty()){
+            product.setId(1);
+            productList.add(product);
+            return;
         }
+
+        int lastIndexId = productList.getLast().getId();
+        product.setId(lastIndexId + 1); //auto increment
         productList.add(product);
     }
 
