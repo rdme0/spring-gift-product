@@ -2,6 +2,7 @@ package gift.model;
 
 import gift.customException.InvalidIdException;
 import gift.customException.NoSuchProductIdException;
+import gift.customException.NullContentException;
 import gift.domain.ProductDTO;
 import java.util.ArrayList;
 import java.util.List;
@@ -18,7 +19,7 @@ public class ProductModel {
             throws InvalidIdException { //C
 
         if(product.getName().isBlank() || product.getPrice() == null || product.getImageUrl().isBlank())
-            throw new InvalidIdException("입력 값에 빈 곳이 있습니다. 다시 제대로 입력해주세요");
+            throw new NullContentException("입력 값에 빈 곳이 있습니다. 다시 제대로 입력해주세요");
 
         if(product.getId() != null)
             throw new InvalidIdException("id를 입력하지 말아주세요.\n저희가 알아서 추가합니다.");
