@@ -1,6 +1,7 @@
 package gift.domain;
 
 public class ResponseDTO {
+
     boolean isError;
     String message;
 

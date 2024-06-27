@@ -15,13 +15,15 @@ public class ProductModel {
 
     private final List<ProductDTO> productList = new ArrayList<>(); //DB 시뮬레이션
 
-    public synchronized void addProduct(ProductDTO product) throws DuplicatedProductIdException { //C
-        if(isDuplicateId(product))
+    public synchronized void addProduct(ProductDTO product)
+            throws DuplicatedProductIdException { //C
+        if (isDuplicateId(product)) {
             throw new DuplicatedProductIdException("이미 있는 상품 id 입니다.");
+        }
         productList.add(product);
     }
 
-    public synchronized  List<ProductDTO> getProductList() { //R
+    public synchronized List<ProductDTO> getProductList() { //R
         return new ArrayList<>(productList); //방어적 복사
     }
 
@@ -46,8 +48,9 @@ public class ProductModel {
     public synchronized void deleteProduct(Integer id) throws NotFoundSuchProductIdException { //D
         boolean removed = productList.removeIf(productDTO -> productDTO.getId().equals(id));
 
-        if(!removed)
+        if (!removed) {
             throw new NotFoundSuchProductIdException("id가 %d인 상품은 존재하지 않습니다.".formatted(id));
+        }
     }
 
 
