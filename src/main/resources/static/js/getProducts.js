@@ -2,7 +2,6 @@ function addProductRow(element) {
   const table = document.getElementById('productTable').getElementsByTagName('tbody')[0];
   const newRow = table.insertRow();
 
-  const newIdCell = newRow.insertCell(0);
   const newNameCell = newRow.insertCell(1);
   const newPriceCell = newRow.insertCell(2);
   const newImageCell = newRow.insertCell(3);
