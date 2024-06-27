@@ -42,8 +42,8 @@ public class ProductDao {
     }
 
     public void insertProduct(ProductDTO productDTO) {
-        var sql = "INSERT INTO product (id, price, name, imageUrl) values (?, ?, ?, ?)";
-        jdbcTemplate.update(sql, productDTO.getId(), productDTO.getName(), productDTO.getPrice(), productDTO.getImageUrl());
+        var sql = "INSERT INTO product (price, name, imageUrl) values (?, ?, ?)";
+        jdbcTemplate.update(sql, productDTO.getName(), productDTO.getPrice(), productDTO.getImageUrl());
     }
 
     public List<ProductDTO> selectProduct() {
