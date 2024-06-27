@@ -31,7 +31,7 @@ public class ProductService {
         try {
             productDao.insertProduct(productDTO);
         } catch (RuntimeException e) {
-            throw new RuntimeException();
+            throw new RuntimeException(e.getMessage());
         }
 
     }
