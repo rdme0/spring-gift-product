@@ -1,16 +1,10 @@
 package gift.dao;
 
-import gift.customException.InvalidIdException;
-import gift.customException.NoSuchProductIdException;
-import gift.customException.NullContentException;
+
 import gift.domain.ProductDTO;
 import java.sql.Connection;
 import java.sql.DriverManager;
-import java.sql.ResultSet;
-import java.util.ArrayList;
 import java.util.List;
-import java.util.Objects;
-import java.util.Optional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Repository;
@@ -58,14 +52,14 @@ public class ProductDao {
         return products;
     }
 
-    public void updateProduct(ProductDTO productDTO) {
+    public Integer updateProduct(ProductDTO productDTO) {
         var sql = "UPDATE product SET name = ?,price = ?, imageUrl = ? WHERE id = ?";
-        jdbcTemplate.update(sql, productDTO.getName(), productDTO.getPrice(), productDTO.getImageUrl(), productDTO.getId());
+        return jdbcTemplate.update(sql, productDTO.getName(), productDTO.getPrice(), productDTO.getImageUrl(), productDTO.getId());
     }
 
-    public void deleteProduct(ProductDTO productDTO) {
+    public Integer deleteProduct(Integer id) {
         var sql = "DELETE FROM product WHERE id = ?";
-        jdbcTemplate.update(sql, productDTO.getId());
+        return jdbcTemplate.update(sql, id);
     }
 
     public Integer countProduct(){
