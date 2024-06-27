@@ -1,4 +1,4 @@
-function addProductRow() {
+function addProductRow(element) {
   const table = document.getElementById('productTable').getElementsByTagName('tbody')[0];
   const newRow = table.insertRow();
 
@@ -14,6 +14,10 @@ function addProductRow() {
   newImageCell.innerHTML = '<input type="text" id="newImage">';
   saveCell.innerHTML = '<img src="/save.png" alt="save" style="width:100px;height: auto" onclick="saveAddProduct()">';
   cancelCell.innerHTML = '<img src="/cancel.png" alt="cancel" style="width:100px;height: auto" onclick="cancelProductEditing()">';
+
+  // 추가 버튼 비활성화
+  element.style.pointerEvents = 'none';
+  element.style.opacity = '0.3';
 }
 
 function saveAddProduct() {
@@ -51,6 +55,11 @@ function saveAddProduct() {
 function cancelProductEditing() {
   const table = document.getElementById('productTable').getElementsByTagName('tbody')[0];
   table.deleteRow(table.rows.length - 1);
+
+  // 추가 버튼 다시 활성화
+  const addButton = document.getElementById('addButton');
+  addButton.style.pointerEvents = 'auto';
+  addButton.style.opacity = '1';
 }
 
 function removeProductRow(button) {
