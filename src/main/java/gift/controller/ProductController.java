@@ -43,27 +43,18 @@ public class ProductController {
         try {
             productModel.addProduct(productDTO);
         } catch (RuntimeException e) {
-            if (e instanceof CustomException) {
-                return new ResponseEntity<>(new ResponseDTO(true, e.getMessage()),
-                        HttpStatus.BAD_REQUEST);
-            }
-            return new ResponseEntity<>(new ResponseDTO(true, CRITICAL_ERROR_MESSAGE),
-                    HttpStatus.INTERNAL_SERVER_ERROR);
+            return responseError(e);
         }
         return new ResponseEntity<>(new ResponseDTO(false, WELL_DONE_MESSAGE), HttpStatus.CREATED);
     }
+
 
     @DeleteMapping("/products/{id}")
     public ResponseEntity<ResponseDTO> deleteProduct(@PathVariable @Min(1) @NotNull Integer id) {
         try {
             productModel.deleteProduct(id);
         } catch (RuntimeException e) {
-            if (e instanceof CustomException) {
-                return new ResponseEntity<>(new ResponseDTO(true, e.getMessage()),
-                        HttpStatus.BAD_REQUEST);
-            }
-            return new ResponseEntity<>(new ResponseDTO(true, CRITICAL_ERROR_MESSAGE),
-                    HttpStatus.INTERNAL_SERVER_ERROR);
+            return responseError(e);
         }
         return new ResponseEntity<>(new ResponseDTO(false, WELL_DONE_MESSAGE), HttpStatus.OK);
     }
@@ -76,14 +67,19 @@ public class ProductController {
             productModel.updateProduct(id, productDTO);
 
         } catch (RuntimeException e) {
-            if (e instanceof CustomException) {
-                return new ResponseEntity<>(new ResponseDTO(true, e.getMessage()),
-                        HttpStatus.BAD_REQUEST);
-            }
-            return new ResponseEntity<>(new ResponseDTO(true, CRITICAL_ERROR_MESSAGE),
-                    HttpStatus.INTERNAL_SERVER_ERROR);
+            return responseError(e);
         }
         return new ResponseEntity<>(new ResponseDTO(false, WELL_DONE_MESSAGE), HttpStatus.OK);
+    }
+
+
+    private ResponseEntity<ResponseDTO> responseError(RuntimeException e) {
+        if (e instanceof CustomException) {
+            return new ResponseEntity<>(new ResponseDTO(true, e.getMessage()),
+                    HttpStatus.BAD_REQUEST);
+        }
+        return new ResponseEntity<>(new ResponseDTO(true, CRITICAL_ERROR_MESSAGE),
+                HttpStatus.INTERNAL_SERVER_ERROR);
     }
 
 }
