@@ -11,6 +11,8 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -19,9 +21,8 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
 
-@RestController
+@Controller
 @Validated
 @RequestMapping("/api")
 public class ProductController {
@@ -36,8 +37,10 @@ public class ProductController {
     }
 
     @GetMapping("/products")
-    public List<ProductDTO> getProducts() {
-        return productModel.getProductList();
+    public String getProducts(Model model) {
+        System.out.println(productModel.getProductList().toString());
+        model.addAttribute("productList", productModel.getProductList());
+        return "getProducts";
     }
 
     @PostMapping("/products")
@@ -80,6 +83,7 @@ public class ProductController {
             return new ResponseEntity<>(new ResponseDTO(true, e.getMessage()),
                     HttpStatus.BAD_REQUEST);
         }
+        e.printStackTrace();
         return new ResponseEntity<>(new ResponseDTO(true, CRITICAL_ERROR_MESSAGE),
                 HttpStatus.INTERNAL_SERVER_ERROR);
     }
