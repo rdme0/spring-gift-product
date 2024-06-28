@@ -1,4 +1,4 @@
-package gift.customException;
+package gift.exception;
 
 public interface CustomException {
 
