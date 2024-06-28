@@ -37,16 +37,16 @@ function saveAddProduct() {
     dataType: 'json',
     contentType: 'application/json; charset=utf-8',
     data: JSON.stringify(requestJson),
-    success: function (response) {
-      if (response.error) {
-        alert('오류: ' + response.message);
-      } else {
-        alert('상품 추가를 성공하였습니다.');
-      }
+    success: function () {
+      alert('상품 추가를 성공하였습니다.');
       window.location.href = '/api/products';
     },
-    error: function () {
-      alert('상품 추가를 실패하였습니다. 값을 제대로 입력했는지 확인해주세요');
+    error: function (xhr) {
+      if (xhr.responseJSON && xhr.responseJSON.isError && xhr.responseJSON.message) {
+        alert('오류: ' + xhr.responseJSON.message);
+      } else {
+        alert('상품 추가를 실패하였습니다. 값을 제대로 입력했는지 확인해주세요');
+      }
       window.location.href = '/api/products';
     }
   });

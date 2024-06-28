@@ -1,6 +1,6 @@
 package gift.controller;
 
-import gift.customException.CustomException;
+import gift.exception.CustomException;
 import gift.domain.ProductDTO;
 import gift.domain.ResponseDTO;
 import gift.service.ProductService;
@@ -76,6 +76,7 @@ public class ProductController {
     }
 
 
+
     private ResponseEntity<ResponseDTO> responseError(RuntimeException e) {
         if (e instanceof CustomException) {
             return new ResponseEntity<>(new ResponseDTO(true, e.getMessage()),
@@ -85,5 +86,8 @@ public class ProductController {
         return new ResponseEntity<>(new ResponseDTO(true, CRITICAL_ERROR_MESSAGE),
                 HttpStatus.INTERNAL_SERVER_ERROR);
     }
+
+
+
 
 }

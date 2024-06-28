@@ -1,10 +1,10 @@
 package gift.service;
 
-import gift.customException.InvalidIdException;
-import gift.customException.NoSuchProductIdException;
-import gift.customException.NullContentException;
+import gift.exception.InvalidIdException;
+import gift.exception.NoSuchProductIdException;
 import gift.dao.ProductDao;
 import gift.domain.ProductDTO;
+import gift.exception.NullContentException;
 import java.util.List;
 import java.util.Objects;
 import org.springframework.beans.factory.annotation.Autowired;
