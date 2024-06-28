@@ -40,7 +40,7 @@ public class ProductService {
         return productDao.selectProduct();
     }
 
-    public synchronized void updateProduct(Integer id, ProductDTO product)
+    public void updateProduct(Integer id, ProductDTO product)
             throws RuntimeException { //U
 
         if (!Objects.equals(product.getId(), id)) {
@@ -52,7 +52,7 @@ public class ProductService {
         }
     }
 
-    public synchronized void deleteProduct(Integer id) throws RuntimeException { //D
+    public void deleteProduct(Integer id) throws RuntimeException { //D
         if(productDao.deleteProduct(id) == 0)
             throw new NoSuchProductIdException("id가 %d인 상품은 존재하지 않습니다.".formatted(id));
     }
