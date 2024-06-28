@@ -1,5 +1,6 @@
 function addProductRow(element) {
-  const table = document.getElementById('productTable').getElementsByTagName('tbody')[0];
+  const table = document.getElementById('productTable').getElementsByTagName(
+      'tbody')[0];
   const newRow = table.insertRow();
 
   const newIdCell = newRow.insertCell(0);
@@ -42,7 +43,8 @@ function saveAddProduct() {
       window.location.href = '/api/products';
     },
     error: function (xhr) {
-      if (xhr.responseJSON && xhr.responseJSON.isError && xhr.responseJSON.message) {
+      if (xhr.responseJSON && xhr.responseJSON.isError
+          && xhr.responseJSON.message) {
         alert('오류: ' + xhr.responseJSON.message);
       } else {
         alert('상품 추가를 실패하였습니다. 값을 제대로 입력했는지 확인해주세요');
@@ -53,7 +55,8 @@ function saveAddProduct() {
 }
 
 function cancelProductEditing() {
-  const table = document.getElementById('productTable').getElementsByTagName('tbody')[0];
+  const table = document.getElementById('productTable').getElementsByTagName(
+      'tbody')[0];
   table.deleteRow(table.rows.length - 1);
 
   // 추가 버튼 다시 활성화
@@ -70,16 +73,17 @@ function removeProductRow(button) {
     type: 'DELETE',
     url: `/api/products/${productId}`,
     contentType: 'application/json; charset=utf-8',
-    success: function (response) {
-      if (response.error) {
-        alert('오류: ' + response.message);
-      } else {
+    success: function () {
         alert('상품 삭제를 성공하였습니다.');
-      }
       window.location.href = '/api/products';
     },
-    error: function () {
-      alert('상품 삭제를 실패하였습니다.');
+    error: function (xhr) {
+      if (xhr.responseJSON && xhr.responseJSON.isError
+          && xhr.responseJSON.message) {
+        alert('오류: ' + xhr.responseJSON.message);
+      } else {
+        alert('상품 삭제를 실패하였습니다.');
+      }
       window.location.href = '/api/products';
     }
   });
@@ -114,7 +118,7 @@ function savePutProductRow(button) {
   const newImage = row.querySelector('.newImage').value;
 
   let requestJson = {
-    "id" : productId,
+    "id": productId,
     "name": newName,
     "price": newPrice,
     "imageUrl": newImage
@@ -126,17 +130,17 @@ function savePutProductRow(button) {
     dataType: 'json',
     contentType: 'application/json; charset=utf-8',
     data: JSON.stringify(requestJson),
-    success: function (response) {
-      if (response.error) {
-        alert('오류: ' + response.message);
-      } else {
-        alert('상품 수정을 성공하였습니다.');
-      }
+    success: function () {
+      alert('상품 수정을 성공하였습니다.');
       window.location.href = '/api/products';
     },
-    error: function () {
-
-      alert('상품 수정을 실패하였습니다.  값을 제대로 입력했는지 확인해주세요');
+    error: function (xhr) {
+      if (xhr.responseJSON && xhr.responseJSON.isError
+          && xhr.responseJSON.message) {
+        alert('오류: ' + xhr.responseJSON.message);
+      } else {
+        alert('상품 수정을 실패하였습니다. 값을 제대로 입력했는지 확인해주세요');
+      }
       window.location.href = '/api/products';
     }
   });
