@@ -22,10 +22,10 @@ public class ProductService {
     public void addProduct(ProductDTO productDTO)
             throws RuntimeException{ //C
 
-        if(productDTO.getName().isBlank() || productDTO.getPrice() == null || productDTO.getImageUrl().isBlank())
+        if(productDTO.name().isBlank() || productDTO.price() == null || productDTO.imageUrl().isBlank())
             throw new NullContentException("입력 값에 빈 곳이 있습니다. 다시 제대로 입력해주세요");
 
-        if(productDTO.getId() != null)
+        if(productDTO.id() != null)
             throw new InvalidIdException("id를 입력하지 말아주세요. 저희가 알아서 추가합니다.");
 
         try {
@@ -43,7 +43,7 @@ public class ProductService {
     public void updateProduct(Integer id, ProductDTO product)
             throws RuntimeException { //U
 
-        if (!Objects.equals(product.getId(), id)) {
+        if (!Objects.equals(product.id(), id)) {
             throw new InvalidIdException("올바르지 않은 id입니다.");
         }
 

@@ -43,7 +43,7 @@ public class ProductDao implements CommandLineRunner {
 
     public void insertProduct(ProductDTO productDTO) {
         var sql = "INSERT INTO product (name, price, imageUrl) values (?, ?, ?)";
-        jdbcTemplate.update(sql, productDTO.getName(), productDTO.getPrice(), productDTO.getImageUrl());
+        jdbcTemplate.update(sql, productDTO.name(), productDTO.price(), productDTO.imageUrl());
     }
 
     public List<ProductDTO> selectProduct() {
@@ -60,7 +60,7 @@ public class ProductDao implements CommandLineRunner {
 
     public Integer updateProduct(ProductDTO productDTO) {
         var sql = "UPDATE product SET name = ?,price = ?, imageUrl = ? WHERE id = ?";
-        return jdbcTemplate.update(sql, productDTO.getName(), productDTO.getPrice(), productDTO.getImageUrl(), productDTO.getId());
+        return jdbcTemplate.update(sql, productDTO.name(), productDTO.price(), productDTO.imageUrl(), productDTO.id());
     }
 
     public Integer deleteProduct(Integer id) {
