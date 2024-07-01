@@ -23,7 +23,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 
 @Controller
 @Validated
-@RequestMapping("/api")
+@RequestMapping("/api/products")
 public class ProductController {
 
     private final ProductService productService;
@@ -35,13 +35,13 @@ public class ProductController {
         this.productService = productService;
     }
 
-    @GetMapping("/products")
+    @GetMapping("")
     public String getProducts(Model model) {
         model.addAttribute("productList", productService.getProductList());
         return "getProducts";
     }
 
-    @PostMapping("/products")
+    @PostMapping("")
     public ResponseEntity<ResponseDTO> addProduct(@RequestBody @Valid ProductDTO productDTO) {
         try {
             productService.addProduct(productDTO);
@@ -52,7 +52,7 @@ public class ProductController {
     }
 
 
-    @DeleteMapping("/products/{id}")
+    @DeleteMapping("/{id}")
     public ResponseEntity<ResponseDTO> deleteProduct(@PathVariable @Min(1) @NotNull Integer id) {
         try {
             productService.deleteProduct(id);
@@ -63,7 +63,7 @@ public class ProductController {
     }
 
 
-    @PutMapping("/products/{id}")
+    @PutMapping("/{id}")
     public ResponseEntity<ResponseDTO> updateProduct(@PathVariable @Min(1) @NotNull Integer id,
             @RequestBody @Valid ProductDTO productDTO) {
         try {
