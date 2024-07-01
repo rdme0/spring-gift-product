@@ -1,8 +1,8 @@
 package gift.controller;
 
 import gift.exception.CustomException;
-import gift.domain.ProductDTO;
-import gift.domain.ResponseDTO;
+import gift.dto.ProductDTO;
+import gift.dto.ResponseDTO;
 import gift.service.ProductService;
 import jakarta.validation.Valid;
 import jakarta.validation.constraints.Min;

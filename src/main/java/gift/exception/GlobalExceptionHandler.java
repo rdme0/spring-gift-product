@@ -1,6 +1,6 @@
 package gift.exception;
 
-import gift.domain.ResponseDTO;
+import gift.dto.ResponseDTO;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.http.converter.HttpMessageNotReadableException;

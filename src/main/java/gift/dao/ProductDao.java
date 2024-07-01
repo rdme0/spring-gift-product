@@ -2,7 +2,7 @@ package gift.dao;
 
 
 import gift.config.DatabaseProperties;
-import gift.domain.ProductDTO;
+import gift.dto.ProductDTO;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.util.List;

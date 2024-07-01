@@ -3,7 +3,7 @@ package gift.service;
 import gift.exception.InvalidIdException;
 import gift.exception.NoSuchProductIdException;
 import gift.dao.ProductDao;
-import gift.domain.ProductDTO;
+import gift.dto.ProductDTO;
 import gift.exception.NullContentException;
 import java.util.List;
 import java.util.Objects;
