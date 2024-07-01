@@ -2,9 +2,6 @@ package gift.entity;
 
 import gift.dto.ProductDTO;
 import gift.exception.BlankContentException;
-import jakarta.validation.constraints.Min;
-import jakarta.validation.constraints.NotBlank;
-import jakarta.validation.constraints.NotNull;
 
 public class Product {
 
