@@ -37,32 +37,16 @@ public class Product {
         return id;
     }
 
-    private void setId(Integer id) {
-        this.id = id;
-    }
-
     public String getName() {
         return name;
-    }
-
-    private void setName(String name) {
-        this.name = name;
     }
 
     public Integer getPrice() {
         return price;
     }
 
-    private void setPrice(Integer price) {
-        this.price = price;
-    }
-
     public String getImageUrl() {
         return imageUrl;
-    }
-
-    private void setImageUrl(String imageUrl) {
-        this.imageUrl = imageUrl;
     }
 
     private void blankCatch(ProductDTO productDTO) throws BlankContentException {
