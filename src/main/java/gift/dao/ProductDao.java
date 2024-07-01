@@ -2,7 +2,7 @@ package gift.dao;
 
 
 import gift.config.DatabaseProperties;
-import gift.dto.ProductDTO;
+import gift.entity.Product;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.util.List;
@@ -47,15 +47,15 @@ public class ProductDao implements CommandLineRunner {
                 databaseProperties.getUsername(), databaseProperties.getPassword());
     }
 
-    public void insertProduct(ProductDTO productDTO) {
+    public void insertProduct(Product product) {
         var sql = "INSERT INTO product (name, price, imageUrl) values (?, ?, ?)";
-        jdbcTemplate.update(sql, productDTO.name(), productDTO.price(), productDTO.imageUrl());
+        jdbcTemplate.update(sql, product.getName(), product.getPrice(), product.getImageUrl());
     }
 
-    public List<ProductDTO> selectProduct() {
+    public List<Product> selectProduct() {
 
         var sql = "SELECT * from product";
-        List<ProductDTO> products = jdbcTemplate.query(sql, (rs, rowNum) -> new ProductDTO(
+        List<Product> products = jdbcTemplate.query(sql, (rs, rowNum) -> new Product(
                 rs.getInt("id"),
                 rs.getString("name"),
                 rs.getInt("price"),
@@ -64,10 +64,10 @@ public class ProductDao implements CommandLineRunner {
         return products;
     }
 
-    public Integer updateProduct(ProductDTO productDTO) {
+    public Integer updateProduct(Product product) {
         var sql = "UPDATE product SET name = ?,price = ?, imageUrl = ? WHERE id = ?";
-        return jdbcTemplate.update(sql, productDTO.name(), productDTO.price(),
-                productDTO.imageUrl(), productDTO.id());
+        return jdbcTemplate.update(sql, product.getName(), product.getPrice(),
+                product.getImageUrl(), product.getId());
     }
 
     public Integer deleteProduct(Integer id) {
