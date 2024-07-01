@@ -1,22 +1,27 @@
 package gift.dao;
 
 
+import gift.config.DatabaseProperties;
 import gift.domain.ProductDTO;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
+import org.springframework.boot.context.properties.ConfigurationProperties;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Repository;
 
 @Repository
 public class ProductDao implements CommandLineRunner {
+
     private final JdbcTemplate jdbcTemplate;
+    private final DatabaseProperties databaseProperties;
 
     @Autowired
-    public ProductDao(JdbcTemplate jdbcTemplate) {
+    public ProductDao(JdbcTemplate jdbcTemplate, DatabaseProperties databaseProperties) {
         this.jdbcTemplate = jdbcTemplate;
+        this.databaseProperties = databaseProperties;
     }
 
     @Override
@@ -24,21 +29,22 @@ public class ProductDao implements CommandLineRunner {
         var sqlDropTable = "DROP TABLE IF EXISTS product";
 
         var sqlCreateTable = """
-            CREATE TABLE product (
-              id INT PRIMARY KEY AUTO_INCREMENT,
-              name VARCHAR(255) NOT NULL,
-              price INT NOT NULL,
-              imageUrl VARCHAR(4096) NOT NULL
-            );
-            """;
+                CREATE TABLE product (
+                  id INT PRIMARY KEY AUTO_INCREMENT,
+                  name VARCHAR(255) NOT NULL,
+                  price INT NOT NULL,
+                  imageUrl VARCHAR(4096) NOT NULL
+                );
+                """;
 
         jdbcTemplate.execute(sqlDropTable);
         jdbcTemplate.execute(sqlCreateTable);
     }
 
-
+    @ConfigurationProperties(prefix = "spring.datasource")
     public Connection getConnection() throws Exception {
-        return DriverManager.getConnection("jdbc:h2:mem:gift", "sa", "");
+        return DriverManager.getConnection(databaseProperties.getUrl(),
+                databaseProperties.getUsername(), databaseProperties.getPassword());
     }
 
     public void insertProduct(ProductDTO productDTO) {
@@ -60,7 +66,8 @@ public class ProductDao implements CommandLineRunner {
 
     public Integer updateProduct(ProductDTO productDTO) {
         var sql = "UPDATE product SET name = ?,price = ?, imageUrl = ? WHERE id = ?";
-        return jdbcTemplate.update(sql, productDTO.name(), productDTO.price(), productDTO.imageUrl(), productDTO.id());
+        return jdbcTemplate.update(sql, productDTO.name(), productDTO.price(),
+                productDTO.imageUrl(), productDTO.id());
     }
 
     public Integer deleteProduct(Integer id) {
@@ -68,7 +75,7 @@ public class ProductDao implements CommandLineRunner {
         return jdbcTemplate.update(sql, id);
     }
 
-    public Integer countProduct(){
+    public Integer countProduct() {
         var sql = "SELECT COUNT(id) FROM product";
         return jdbcTemplate.queryForObject(sql, Integer.class);
     }
