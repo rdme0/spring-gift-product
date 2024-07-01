@@ -2,25 +2,18 @@ package gift.entity;
 
 import gift.dto.ProductDTO;
 import gift.exception.BlankContentException;
-import gift.exception.CustomException;
 import jakarta.validation.constraints.Min;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
-import java.util.List;
-import java.util.stream.Collectors;
 
 public class Product {
 
     private Integer id;
 
-    @NotBlank(message = "상품 이름을 입력해주세요.")
     private String name;
 
-    @NotNull(message = "가격을 입력해주세요")
-    @Min(value = 0, message = "가격은 0 이상이여야 합니다.")
     private Integer price;
 
-    @NotBlank(message = "이미지 URL을 입력해주세요.")
     private String imageUrl;
 
     public Product(){}
