@@ -59,7 +59,7 @@ public class ProductController {
         } catch (RuntimeException e) {
             return responseError(e);
         }
-        return new ResponseEntity<>(new ResponseDTO(false, WELL_DONE_MESSAGE), HttpStatus.OK);
+        return new ResponseEntity<>(new ResponseDTO(false, WELL_DONE_MESSAGE), HttpStatus.NO_CONTENT);
     }
 
 
