@@ -49,7 +49,7 @@ public class ProductService {
         }
     }
 
-    public void deleteProduct(Integer id) throws RuntimeException { //D
+    public void deleteProduct(Integer id) throws RuntimeException {
         if(productDao.deleteProduct(id) == 0)
             throw new NoSuchProductIdException("id가 %d인 상품은 존재하지 않습니다.".formatted(id));
     }
