@@ -1,6 +1,6 @@
 package gift.exception;
 
-public class NoSuchProductIdException extends RuntimeException implements CustomException{
+public class NoSuchProductIdException extends CustomException {
     public NoSuchProductIdException(){
         super();
     }

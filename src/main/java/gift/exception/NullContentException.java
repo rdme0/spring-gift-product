@@ -1,6 +1,6 @@
 package gift.exception;
 
-public class NullContentException extends RuntimeException implements CustomException {
+public class NullContentException extends CustomException {
 
     public NullContentException() {
         super();

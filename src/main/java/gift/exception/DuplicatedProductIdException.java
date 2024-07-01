@@ -1,6 +1,6 @@
 package gift.exception;
 
-public class DuplicatedProductIdException extends RuntimeException implements CustomException {
+public class DuplicatedProductIdException extends CustomException {
     public DuplicatedProductIdException() {
         super();
     }

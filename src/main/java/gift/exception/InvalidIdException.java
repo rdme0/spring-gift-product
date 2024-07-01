@@ -1,6 +1,6 @@
 package gift.exception;
 
-public class InvalidIdException extends RuntimeException implements CustomException {
+public class InvalidIdException extends CustomException {
     public InvalidIdException() {
         super();
     }
