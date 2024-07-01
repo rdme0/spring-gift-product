@@ -49,7 +49,6 @@ function saveAddProduct() {
       } else {
         alert('상품 추가를 실패하였습니다. 값을 제대로 입력했는지 확인해주세요');
       }
-      window.location.href = '/api/products';
     }
   });
 }
@@ -141,7 +140,6 @@ function savePutProductRow(button) {
       } else {
         alert('상품 수정을 실패하였습니다. 값을 제대로 입력했는지 확인해주세요');
       }
-      window.location.href = '/api/products';
     }
   });
 }
